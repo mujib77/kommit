@@ -1,0 +1,14 @@
+*.exe
+*.out
+
+# config with api keys
+.env
+*.env
+.kommit/
+
+# vscode
+.vscode/
+.idea/
+
+# go
+vendor/
