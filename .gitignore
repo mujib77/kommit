@@ -12,3 +12,6 @@
 
 # go
 vendor/
+
+.kommit/
+config.yaml
