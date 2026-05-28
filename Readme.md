@@ -10,6 +10,7 @@ Supports OpenAI, Anthropic, Gemini and Ollama.
 
 ## Demo
 
+![Demo](kommit.gif)
 
 
 ---
@@ -47,7 +48,7 @@ Create a config file at `~/.kommit/config.yaml`:
 ```yaml
 provider: gemini        # gemini | openai | anthropic | ollama
 api_key: your-key-here
-model: gemini-2.0-flash
+model: gemini-3.5-flash
 style: conventional     # conventional | simple
 language: english
 ```
