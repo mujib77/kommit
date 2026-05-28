@@ -22,12 +22,16 @@ It reads your diff, sends it to an AI provider,
 and shows you 3 commit message options to pick from.
 
 ◆ KOMMIT — analyzing your changes...
+
 staged: 3 files  +47  -12
+
 generating commit messages...
 
-feat(ai): add gemini and ollama providers
-feat: support multiple LLM providers
-chore: add gemini, ollama, openai, anthropic support
+- feat(ai): add gemini and ollama providers
+
+- feat: support multiple LLM providers
+
+- chore: add gemini, ollama, openai, anthropic support
 
 [1/2/3] pick  [↑↓] navigate  [enter] select  [e] edit  [q] quit
 
@@ -55,10 +59,13 @@ language: english
 
 **Getting API keys:**
 
-Gemini (free)    → aistudio.google.com → Get API Key
-OpenAI           → platform.openai.com → API Keys
-Anthropic        → console.anthropic.com → API Keys
-Ollama (free)    → ollama.com/download → no key needed
+- Gemini (free)    → aistudio.google.com → Get API Key
+
+- OpenAI           → platform.openai.com → API Keys
+
+- Anthropic        → console.anthropic.com → API Keys
+
+- Ollama (free)    → ollama.com/download → no key needed
 
 **Ollama setup:**
 
@@ -99,12 +106,15 @@ kommit
 
 ## Roadmap
 
-v0.1.0  ✅  3 message options, 4 providers, interactive TUI
-v0.2.0  →   atomic commit splitter
+- v0.1.0  ✅  3 message options, 4 providers, interactive TUI
+
+- v0.2.0  →   atomic commit splitter
 detects unrelated changes, splits into logical commits
-v0.3.0  →   repo style learner
+
+- v0.3.0  →   repo style learner
 scans your commit history, matches your team style
-v0.4.0  →   Mac/Linux support, brew install
+
+- v0.4.0  →   Mac/Linux support, brew install
 
 ---
 
