@@ -15,3 +15,7 @@ vendor/
 
 .kommit/
 config.yaml
+
+kommit.exe
+kommit
+*.exe
