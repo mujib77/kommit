@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/mujib77/kommit/config"
+	"github.com/mujib77/kommit/internal/git"
 )
 
 type Provider interface {
@@ -71,4 +72,34 @@ Return ONLY a JSON array with exactly 3 strings, nothing else:
 
 Git diff:
 %s`, styleGuide, diff)
+}
+
+func GenerateForGroups(
+	ctx context.Context,
+	provider Provider,
+	groups []git.FileGroup,
+	style string,
+) ([]string, error) {
+	messages := []string{}
+
+	for _, group := range groups {
+		diff := group.Diff
+		if diff == "" {
+			for _, file := range group.Files {
+				diff += git.GetFileDiff(file)
+			}
+		}
+
+		truncated := git.TruncateDiff(diff, 4000)
+		msgs, err := provider.GenerateMessages(ctx, truncated, style)
+		if err != nil {
+			return nil, err
+		}
+
+		if len(msgs) > 0 {
+			messages = append(messages, msgs[0])
+		}
+	}
+
+	return messages, nil
 }
