@@ -3,7 +3,6 @@ package commit
 import (
 	"context"
 	"fmt"
-	
 
 	"github.com/mujib77/kommit/config"
 	"github.com/mujib77/kommit/internal/ai"
@@ -24,7 +23,7 @@ func NewCommitCmd() *cobra.Command {
 func runCommit(cmd *cobra.Command, args []string) error {
 	cfg := config.Load()
 
-	if cfg.APIKey == "" {
+	if cfg.APIKey == "" && cfg.Provider != "ollama" {
 		config.PrintSetup()
 		return fmt.Errorf("no API key configured")
 	}
@@ -104,12 +103,14 @@ func handleAtomicCommit(
 			truncated,
 			cfg.Style,
 		)
-		if err != nil {
-			return err
-		}
 
-		if len(msgs) == 0 {
-			continue
+		if err != nil || len(msgs) == 0 {
+			fmt.Printf("  AI failed for group %d, using fallback\n", i+1)
+			msgs = []string{
+				fmt.Sprintf("chore: update %s", group.Files[0]),
+				fmt.Sprintf("fix: modify %s", group.Files[0]),
+				fmt.Sprintf("refactor: changes in %s", group.Files[0]),
+			}
 		}
 
 		fmt.Printf("  Group %d — %d files\n", i+1, len(group.Files))

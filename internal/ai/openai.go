@@ -55,10 +55,19 @@ func (o *OpenAIProvider) GenerateMessages(
 		}
 
 func parseMessages(content string) ([]string, error) {
+	// clean up response aggressively
+	content = strings.TrimSpace(content)
 	content = strings.TrimPrefix(content, "```json")
-	content = strings.TrimSuffix(content, "```")
+	content = strings.TrimPrefix(content, "```")
 	content = strings.TrimSuffix(content, "```")
 	content = strings.TrimSpace(content)
+
+	// find JSON array in response
+	start := strings.Index(content, "[")
+	end := strings.LastIndex(content, "]")
+	if start != -1 && end != -1 && end > start {
+		content = content[start : end+1]
+	}
 
 	var messages []string
 	err := json.Unmarshal([]byte(content), &messages)
@@ -69,5 +78,6 @@ func parseMessages(content string) ([]string, error) {
 	if len(messages) == 0 {
 		return nil, fmt.Errorf("no messages returned")
 	}
+
 	return messages, nil
 }
