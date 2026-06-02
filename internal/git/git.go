@@ -107,6 +107,7 @@ func GroupStagedFiles(diff *DiffInfo) []FileGroup {
 		groups[category] = append(groups[category], file)
 	}
 
+
 	if len(groups) <= 1 {
 		return []FileGroup{
 			{
