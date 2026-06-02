@@ -42,17 +42,17 @@ func BuildPrompt(diff string, style string) string {
 	if style == "conventional" {
 		styleGuide = `
 Use Conventional Commits format:
-  - feat: new feature
-  - fix: bug fix  
-  - docs: documentation
-  - style: formatting
-  - refactor: code restructure
-  - test: adding tests
-  - chore: maintenance
+- feat: new feature
+- fix: bug fix  
+- docs: documentation
+- style: formatting
+- refactor: code restructure
+- test: adding tests
+- chore: maintenance
 
-  Format: <type>(<optional scope>): <description>
-  Example: feat(auth): add JWT token validation`
-}
+Format: <type>(<optional scope>): <description>
+Example: feat(auth): add JWT token validation`
+	}
 
 	return fmt.Sprintf(`You are an expert developer writing git commit messages.
 
@@ -66,8 +66,10 @@ Rules:
 - Use present tense ("add" not "added")
 - No period at end
 - Each option should have a different angle/focus
+- IMPORTANT: Return ONLY a valid JSON array, no other text
+- IMPORTANT: No markdown, no backticks, no explanation
 
-Return ONLY a JSON array with exactly 3 strings, nothing else:
+Your response must be exactly this format:
 ["message 1", "message 2", "message 3"]
 
 Git diff:
