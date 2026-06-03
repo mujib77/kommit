@@ -1,39 +1,76 @@
 # kommit
 
-AI-powered git commit messages in your terminal.
-Supports OpenAI, Anthropic, Gemini and Ollama.
+> AI-powered git commit messages that don't suck.
 
-> v0.1.0 — tested on Windows with Gemini. 
-> Mac/Linux support coming in v0.2.0.
-
----
-
-## Demo
-
-![Demo](kommit.gif)
-
+![CI](https://github.com/mujib77/kommit/actions/workflows/ci.yml/badge.svg)
+![Version](https://img.shields.io/badge/version-v0.2.0-cyan)
+![License](https://img.shields.io/badge/license-MIT-blue)
 
 ---
 
-## How it works
+## The problem
 
-Run `kommit` in any git repo with staged changes.
-It reads your diff, sends it to an AI provider,
-and shows you 3 commit message options to pick from.
+You staged 4 files. Two are auth changes. One is a README fix. One is a config update. You type `git commit -m "fix stuff"` and move on.
 
+Your git history is now useless.
+
+## The solution
+
+```bash
+kommit
+```
+
+kommit reads your diff, detects unrelated changes, splits them into logical groups, and generates meaningful commit messages for each one.
+
+---
+
+## Features
+
+**Atomic Commit Splitter**
+
+Detects unrelated changes and splits them into separate logical commits automatically. No other AI commit tool does this.
+
+```
 ◆ KOMMIT — analyzing your changes...
+  staged: 4 files  +47  -12
 
-staged: 3 files  +47  -12
+◆ detected 2 logical groups
 
-generating commit messages...
+  Group 1 — 2 files
+    internal/auth/jwt.go
+    internal/auth/middleware.go
 
-- feat(ai): add gemini and ollama providers
+  1. feat(auth): add JWT token validation
+  2. feat(auth): implement middleware authentication  
+  3. chore(auth): add auth layer
 
-- feat: support multiple LLM providers
+  [1/2/3] pick  [e] edit  [q] quit
 
-- chore: add gemini, ollama, openai, anthropic support
+  ✓ committed group 1: feat(auth): add JWT token validation
 
-[1/2/3] pick  [↑↓] navigate  [enter] select  [e] edit  [q] quit
+  Group 2 — 1 file
+    README.md
+
+  1. docs: update README with setup instructions
+  2. docs: add installation guide
+  3. chore: update documentation
+
+  [1/2/3] pick  [e] edit  [q] quit
+
+  ✓ committed group 2: docs: update README with setup instructions
+```
+
+**3 message options per commit**
+
+Pick the one that fits, edit it, or regenerate.
+
+**4 AI providers**
+
+Gemini (free), OpenAI, Anthropic, Ollama (local, free).
+
+**Conventional Commits**
+
+`feat:` `fix:` `docs:` `chore:` `refactor:` `test:` out of the box.
 
 ---
 
@@ -47,34 +84,32 @@ go install github.com/mujib77/kommit@latest
 
 ## Setup
 
-Create a config file at `~/.kommit/config.yaml`:
+Create `~/.kommit/config.yaml`:
 
 ```yaml
 provider: gemini        # gemini | openai | anthropic | ollama
 api_key: your-key-here
-model: gemini-3.5-flash
-style: conventional     # conventional | simple
-language: english
+model: gemini-2.5-flash
+style: conventional
 ```
 
-**Getting API keys:**
+**Free options:**
 
-- Gemini (free)    → aistudio.google.com → Get API Key
+| Provider | Free | Key needed | Get key |
+|----------|------|------------|---------|
+| Gemini | ✅ | ✅ | [aistudio.google.com](https://aistudio.google.com) |
+| Ollama | ✅ | ❌ | [ollama.com](https://ollama.com) |
+| OpenAI | ❌ | ✅ | [platform.openai.com](https://platform.openai.com) |
+| Anthropic | ❌ | ✅ | [console.anthropic.com](https://console.anthropic.com) |
 
-- OpenAI           → platform.openai.com → API Keys
-
-- Anthropic        → console.anthropic.com → API Keys
-
-- Ollama (free)    → ollama.com/download → no key needed
-
-**Ollama setup:**
+**Ollama setup (completely free, runs locally):**
 
 ```bash
 ollama pull llama3.2
 ollama serve
 ```
 
-Then set provider to `ollama` in config — no API key needed.
+Then set `provider: ollama` in config — no API key needed.
 
 ---
 
@@ -86,44 +121,28 @@ git add .
 
 # run kommit
 kommit
-
-# pick a message, edit if needed, press enter
-# done — your commit is made
 ```
-
----
-
-## Providers
-
-| Provider  | Free | Tested | Model |
-|-----------|------|--------|-------|
-| Gemini    | ✅   | ✅     | gemini-3.5-flash |
-| Ollama    | ✅   | coming soon | llama3.2 |
-| OpenAI    | ❌   | coming soon | gpt-4o |
-| Anthropic | ❌   | coming soon | claude-sonnet |
 
 ---
 
 ## Roadmap
 
-- v0.1.0  ✅  3 message options, 4 providers, interactive TUI
-
-- v0.2.0  →   atomic commit splitter
-detects unrelated changes, splits into logical commits
-
-- v0.3.0  →   repo style learner
-scans your commit history, matches your team style
-
-- v0.4.0  →   Mac/Linux support, brew install
+```
+v0.1.0  ✅  3 message options, 4 providers, interactive TUI
+v0.2.0  ✅  Atomic commit splitter
+v0.3.0  →   Repo style learner — learns your team's commit style
+v0.4.0  →   PR description generator
+v1.0.0  →   brew install, binary releases for all platforms
+```
 
 ---
 
 ## Built With
 
-- Go
-- Cobra — CLI framework
-- Bubbletea — TUI
-- Lipgloss — terminal styling
+- [Go](https://golang.org)
+- [Cobra](https://github.com/spf13/cobra) — CLI framework
+- [Bubbletea](https://github.com/charmbracelet/bubbletea) — TUI
+- [Lipgloss](https://github.com/charmbracelet/lipgloss) — terminal styling
 
 ---
 
