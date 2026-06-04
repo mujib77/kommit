@@ -190,6 +190,8 @@ func GetFileDiff(file string) string {
 }
 
 func StageFiles(files []string) error {
+	exec.Command("git", "reset", "HEAD").Output()
+
 	args := append([]string{"add"}, files...)
 	out, err := exec.Command("git", args...).CombinedOutput()
 	if err != nil {
