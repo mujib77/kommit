@@ -14,6 +14,10 @@ You staged 4 files. Two are auth changes. One is a README fix. One is a config u
 
 Your git history is now useless.
 
+## Demo
+
+![kommit demo](kom.gif)
+
 ## The solution
 
 ```bash
