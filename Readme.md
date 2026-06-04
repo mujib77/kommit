@@ -149,6 +149,3 @@ v1.0.0  →   brew install, binary releases for all platforms
 ## License
 
 MIT
-
-# test
-- test for demo video
