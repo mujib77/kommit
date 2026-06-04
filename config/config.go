@@ -75,9 +75,6 @@ Example config:
 Or set environment variables:
   export OPENAI_API_KEY=sk-...
   export ANTHROPIC_API_KEY=sk-...
-  
+  export GEMINI_API_KEY=sk-...
  `, ConfigPath())
 }
-
-// test for demo
-// test 1
